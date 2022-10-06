@@ -1,5 +1,5 @@
-import { ACCESS_TOKEN } from '@/constants'
-import { login, register, verifyToken, getLoggedUserData, editUser } from '@/api/api'
+import {ACCESS_TOKEN} from '@/constants'
+import {login, register, verifyToken, getLoggedUserData, editUser, sendCode} from '@/api/api'
 
 export const userModule = {
     state: {
@@ -86,6 +86,14 @@ export const userModule = {
                 })
                 .catch(error => context.commit('setError', error.message))
                 .finally(() => context.commit('setIsLoading', false))
+        },
+        proceedGoogleAuth(context, payload) {
+            sendCode(payload)
+                .then((response) => {
+                    localStorage.setItem(ACCESS_TOKEN, response.data.access_token)
+                    context.dispatch('lookupLocalStorage')
+                })
+                .catch(error => context.commit('setError', error.message))
         }
     },
 }

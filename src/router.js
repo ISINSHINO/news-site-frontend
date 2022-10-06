@@ -11,6 +11,10 @@ const routes = [
     {
         path: '/users/:id',
         component: () => import("@/pages/UserPage.vue")
+    },
+    {
+        path: '/accounts/google/login/callback/',
+        component: () => import("@/pages/GoogleHelper.vue")
     }
 ]
 

@@ -52,3 +52,9 @@ export const addPost = async (post) => {
 export const editUser = async (payload) => {
     return await API.patch(`/users/${payload.userID}/`, payload.userFormData,)
 }
+
+export const sendCode = async (payload) => {
+    return await API.post('/google/connect/', {
+        "code": payload
+    })
+}

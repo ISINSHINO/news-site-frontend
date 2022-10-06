@@ -65,6 +65,9 @@
             >
               Continue
             </v-btn>
+            <a :href="googleURL">
+              google
+            </a>
           </v-card-actions>
         </v-form>
     </v-card>
@@ -95,6 +98,26 @@ export default {
       dialogType: {
         type: String,
       }
+  },
+  computed: {
+    googleURL() {
+      const googleAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+      const scope = [
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile'
+      ].join(' ');
+      const params = {
+        response_type: 'code',
+        client_id: "371672465150-jkp80f2cuolsejvbt1g0h2721cen0eps.apps.googleusercontent.com",
+        redirect_uri: "http://localhost:8080/accounts/google/login/callback/",
+        prompt: 'select_account',
+        access_type: 'offline',
+        scope
+      };
+      const urlParams = new URLSearchParams(params).toString();
+
+      return `${googleAuthUrl}?${urlParams}`
+    }
   },
   methods: {
       hideDialog() {
